@@ -10,7 +10,7 @@ const User = require('../../models/User');
 router.get('/test', (req, res) => res.json({ msg: 'users work' }));
 
 // @route   POST api/users/register
-router.get('/register', (req, res) => {
+router.post('/register', (req, res) => {
 	User.findOne({ email: req.body.email }).then((user) => {
 		if (user) {
 			errors.email = 'Email already exists';
