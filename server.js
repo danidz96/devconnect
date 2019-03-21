@@ -16,7 +16,10 @@ const db = require('./config/keys').mongoURI;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-mongoose.connect(db).then(() => console.log('MongoDB Connected')).catch((err) => console.log(err));
+mongoose
+	.connect(db, { useNewUrlParser: true })
+	.then(() => console.log('MongoDB Connected'))
+	.catch((err) => console.log(err));
 
 // Passport middleware
 app.use(passport.initialize());
