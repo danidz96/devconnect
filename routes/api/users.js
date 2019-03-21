@@ -8,6 +8,7 @@ const passport = require('passport');
 
 // Load input validation
 const validateRegisterInput = require('../../validation/register.js');
+const validateLoginInput = require('../../validation/login.js');
 
 //Load User model
 const User = require('../../models/User');
