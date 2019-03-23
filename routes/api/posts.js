@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
 const Post = require('../../models/Post');
+const User = require('../../models/User');
 const validatePostInput = require('../../validation/post');
 
 // @route   GET api/posts/test
@@ -52,5 +53,37 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, re
 			post.remove().then(() => res.json({ success: 'true' }));
 		})
 		.catch((err) => res.status(404).json({ postnofound: 'Post not found' }));
+});
+
+// @route   POST api/posts/like/:id
+router.post('/like/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+	User.findById(req.user.id).then((user) => {
+		Post.findById(req.params.id)
+			.then((post) => {
+				if (post.likes.filter((like) => like.user.toString() === user.id).length > 0) {
+					return res.status(400).json({ alreadyliked: 'User already liked this post' });
+				}
+				post.likes.unshift({ user: user.id });
+				post.save().then((post) => res.json(post));
+			})
+			.catch((err) => res.status(404).json({ postnofound: 'Post not found' }));
+	});
+});
+
+// @route   POST api/posts/unlike/:id
+router.post('/unlike/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+	User.findById(req.user.id).then((user) => {
+		Post.findById(req.params.id)
+			.then((post) => {
+				if (post.likes.filter((like) => like.user.toString() === user.id).length === 0) {
+					return res.status(400).json({ notliked: 'You not liked this post' });
+				}
+				const filteredArr = post.likes.filter((like) => like.user.toString() !== user.id);
+				post.likes = filteredArr;
+
+				post.save().then((post) => res.json(post));
+			})
+			.catch((err) => res.status(404).json({ postnofound: 'Post not found' }));
+	});
 });
 module.exports = router;
