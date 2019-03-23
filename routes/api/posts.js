@@ -40,4 +40,17 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 
 	newPost.save().then((post) => res.json(post));
 });
+
+// @route   DELETE api/posts/:id
+router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+	Post.findById(req.params.id)
+		.then((post) => {
+			if (post.user.toString() !== req.user.id) {
+				return res.status(401).json({ noauthorized: 'User not authorized' });
+			}
+
+			post.remove().then(() => res.json({ success: 'true' }));
+		})
+		.catch((err) => res.status(404).json({ postnofound: 'Post not found' }));
+});
 module.exports = router;
