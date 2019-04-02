@@ -59,6 +59,7 @@ img {
 .form-control::placeholder {
 	color: #bbb !important;
 }
+
 .footer {
 	position: absolute;
 	right: 0;
