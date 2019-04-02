@@ -41,7 +41,6 @@ const Register = () => {
 								/>
 								{errors.name && <div className="invalid-feedback">{errors.name}</div>}
 							</div>
-							<div className="invalid-feedback">fdsfsf</div>
 							<div className="form-group">
 								<input
 									type="email"
