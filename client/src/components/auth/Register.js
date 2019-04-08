@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { registerUser } from '../../actions/authActions';
 
-const Register = () => {
+const Register = (props) => {
 	const [ values, setValues ] = useState({ name: '', email: '', password: '', password2: '' });
 	const [ errors, setErrors ] = useState({});
 
@@ -9,16 +10,20 @@ const Register = () => {
 		setValues({ ...values, [input.name]: input.value });
 	};
 
+	useEffect(
+		() => {
+			setErrors(props.errors);
+		},
+		[ props.errors ]
+	);
+
 	const onSubmit = (e) => {
 		e.preventDefault();
 
 		const newUser = {
 			...values
 		};
-
-		axios.post('/api/users/register', newUser).then((res) => console.log(res.data)).catch((err) => {
-			setErrors(err.response.data);
-		});
+		props.registerUser(newUser);
 	};
 
 	return (
@@ -50,10 +55,10 @@ const Register = () => {
 									onChange={(e) => onChange(e.target)}
 									name="email"
 								/>
+								{errors.email && <div className="invalid-feedback">{errors.email}</div>}
 								<small className="form-text text-muted">
 									This site uses Gravatar so if you want a profile image, use a Gravatar email
 								</small>
-								{errors.email && <div className="invalid-feedback">{errors.email}</div>}
 							</div>
 							<div className="form-group">
 								<input
@@ -86,4 +91,9 @@ const Register = () => {
 	);
 };
 
-export default Register;
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+	errors: state.errors
+});
+
+export default connect(mapStateToProps, { registerUser })(Register);
