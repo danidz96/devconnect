@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const Landing = () => {
+const Landing = (props) => {
+	useEffect(
+		() => {
+			if (props.auth.isAuthenticated) {
+				props.history.push('/dashboard');
+			}
+		},
+		[ props.auth ]
+	);
 	return (
 		<div className="landing">
 			<div className="dark-overlay landing-inner text-light">
@@ -27,4 +36,8 @@ const Landing = () => {
 	);
 };
 
-export default Landing;
+const mapStateToProps = (state) => ({
+	auth: state.auth
+});
+
+export default connect(mapStateToProps)(Landing);

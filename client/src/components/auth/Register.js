@@ -12,9 +12,12 @@ const Register = (props) => {
 
 	useEffect(
 		() => {
+			if (props.auth.isAuthenticated) {
+				props.history.push('/dashboard');
+			}
 			setErrors(props.errors);
 		},
-		[ props.errors ]
+		[ props.errors, props.auth ]
 	);
 
 	const onSubmit = (e) => {

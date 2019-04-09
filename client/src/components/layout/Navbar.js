@@ -1,7 +1,43 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { logoutUser } from '../../actions/authActions';
 
-const Navbar = () => {
+const Navbar = (props) => {
+	const { isAuthenticated, user } = props.auth;
+
+	const authLinks = (
+		<ul className="navbar-nav ml-auto">
+			<li className="nav-item">
+				<img
+					className="navbar-avatar rounded-circle"
+					src={user.avatar}
+					alt={user.name}
+					title="You must have a Gravatar"
+				/>
+			</li>
+			<li className="nav-item">
+				<Link className="nav-link nav-link-logout" onClick={props.logoutUser} to="/login">
+					Logout
+				</Link>
+			</li>
+		</ul>
+	);
+
+	const guestLinks = (
+		<ul className="navbar-nav ml-auto">
+			<li className="nav-item">
+				<Link className="nav-link" to="/register">
+					Sign Up
+				</Link>
+			</li>
+			<li className="nav-item">
+				<Link className="nav-link" to="/login">
+					Login
+				</Link>
+			</li>
+		</ul>
+	);
 	return (
 		<nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
 			<div className="container">
@@ -20,23 +56,15 @@ const Navbar = () => {
 							</Link>
 						</li>
 					</ul>
-
-					<ul className="navbar-nav ml-auto">
-						<li className="nav-item">
-							<Link className="nav-link" to="/register">
-								Sign Up
-							</Link>
-						</li>
-						<li className="nav-item">
-							<Link className="nav-link" to="/login">
-								Login
-							</Link>
-						</li>
-					</ul>
+					{isAuthenticated ? authLinks : guestLinks}
 				</div>
 			</div>
 		</nav>
 	);
 };
 
-export default Navbar;
+const mapStateToProps = (state) => ({
+	auth: state.auth
+});
+
+export default connect(mapStateToProps, { logoutUser })(Navbar);
