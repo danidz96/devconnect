@@ -1,7 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { loginUser } from '../../actions/authActions';
 
-const Login = () => {
+const Login = (props) => {
 	const [ values, setValues ] = useState({ email: '', password: '' });
+	const [ errors, setErrors ] = useState({});
+
+	useEffect(
+		() => {
+			if (props.auth.isAuthenticated) {
+				props.history.push('/dashboard');
+			}
+			setErrors(props.errors);
+		},
+		[ props.errors, props.auth ]
+	);
 
 	const onChange = (input) => {
 		setValues({ ...values, [input.name]: input.value });
@@ -14,7 +27,7 @@ const Login = () => {
 			...values
 		};
 
-		console.log(user);
+		props.loginUser(user);
 	};
 
 	return (
@@ -29,23 +42,25 @@ const Login = () => {
 								<div className="form-group">
 									<input
 										type="email"
-										className="form-control form-control-lg"
+										className={'form-control form-control-lg ' + (errors.email && 'is-invalid')}
 										placeholder="Email Address"
 										name="email"
-										value={values.name}
+										value={values.email}
 										onChange={(e) => onChange(e.target)}
 									/>
+									{errors.email && <div className="invalid-feedback">{errors.email}</div>}
 								</div>
 								<div className="form-group">
 									<input
 										type="password"
-										className="form-control form-control-lg"
+										className={'form-control form-control-lg ' + (errors.password && 'is-invalid')}
 										placeholder="Password"
 										name="password"
-										value={values.name}
+										value={values.password}
 										onChange={(e) => onChange(e.target)}
 										autoComplete="password"
 									/>
+									{errors.password && <div className="invalid-feedback">{errors.password}</div>}
 								</div>
 								<input type="submit" className="btn btn-info btn-block mt-4" />
 							</form>
@@ -57,4 +72,9 @@ const Login = () => {
 	);
 };
 
-export default Login;
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+	errors: state.errors
+});
+
+export default connect(mapStateToProps, { loginUser })(Login);
