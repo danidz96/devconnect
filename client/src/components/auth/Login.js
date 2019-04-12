@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
+import TextFieldGroup from '../common/TextFieldGroup';
 
 const Login = (props) => {
 	const [ values, setValues ] = useState({ email: '', password: '' });
@@ -39,29 +40,22 @@ const Login = (props) => {
 							<h1 className="display-4 text-center">Log In</h1>
 							<p className="lead text-center">Sign in to your DevConnector account</p>
 							<form onSubmit={onSubmit}>
-								<div className="form-group">
-									<input
-										type="email"
-										className={'form-control form-control-lg ' + (errors.email && 'is-invalid')}
-										placeholder="Email Address"
-										name="email"
-										value={values.email}
-										onChange={(e) => onChange(e.target)}
-									/>
-									{errors.email && <div className="invalid-feedback">{errors.email}</div>}
-								</div>
-								<div className="form-group">
-									<input
-										type="password"
-										className={'form-control form-control-lg ' + (errors.password && 'is-invalid')}
-										placeholder="Password"
-										name="password"
-										value={values.password}
-										onChange={(e) => onChange(e.target)}
-										autoComplete="password"
-									/>
-									{errors.password && <div className="invalid-feedback">{errors.password}</div>}
-								</div>
+								<TextFieldGroup
+									placeholder="Email"
+									name="email"
+									type="email"
+									value={values.email}
+									onChange={(e) => onChange(e.target)}
+									error={errors.email}
+								/>
+								<TextFieldGroup
+									placeholder="Password"
+									name="password"
+									type="password"
+									value={values.password}
+									onChange={(e) => onChange(e.target)}
+									error={errors.password}
+								/>
 								<input type="submit" className="btn btn-info btn-block mt-4" />
 							</form>
 						</div>
