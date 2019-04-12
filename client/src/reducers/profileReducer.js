@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
 		case 'GET_PROFILE':
 			return {
 				...state,
-				profile: action.payoad,
+				profile: action.payload,
 				loading: false
 			};
 		case 'PROFILE_LOADING':
@@ -20,7 +20,10 @@ export default (state = initialState, action) => {
 		case 'PROFILE_NOT_FOUND':
 			return state;
 		case 'CLEAR_CURRENT_PROFILE':
-			return state;
+			return {
+				...state,
+				profile: null
+			};
 		case 'GET_PROFILES':
 			return state;
 
