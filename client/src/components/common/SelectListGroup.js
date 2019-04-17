@@ -1,19 +1,24 @@
 import React from 'react';
 
-const TextAreaFieldGroup = ({ name, placeholder, value, error, info, onChange }) => {
+const SelectListGroup = ({ name, value, error, info, onChange, options }) => {
 	return (
 		<div className="form-group">
-			<textarea
+			<select
 				className={'form-control form-control-lg ' + (error && 'is-invalid')}
-				placeholder={placeholder}
 				name={name}
 				value={value}
 				onChange={onChange}
-			/>
+			>
+				{options.map((option) => (
+					<option key={option.label} value={option.value}>
+						{option.label}
+					</option>
+				))}
+			</select>
 			{info && <small className="form-text text-muted">{info}</small>}
 			{error && <div className="invalid-feedback">{error}</div>}
 		</div>
 	);
 };
 
-export default TextAreaFieldGroup;
+export default SelectListGroup;
