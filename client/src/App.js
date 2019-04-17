@@ -10,8 +10,9 @@ import Footer from './components/layout/Footer';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
-import './styles/App.css';
 import PrivateRoute from './components/common/PrivateRoute';
+import CreateProfile from './components/create-profile/CreateProfile';
+import './styles/App.css';
 import store from './store';
 
 // Check for token
@@ -46,6 +47,7 @@ const App = () => {
 						<Route exact path={'/login'} component={Login} />
 						<Switch>
 							<PrivateRoute exact path="/dashboard" component={Dashboard} />
+							<PrivateRoute exact path="/create-profile" component={CreateProfile} />
 						</Switch>
 					</div>
 					<Footer />

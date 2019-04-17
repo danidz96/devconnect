@@ -6,7 +6,6 @@ import Spinner from '../common/Spinner';
 
 const Dashboard = (props) => {
 	useEffect(() => {
-		console.log('dashboard mounted');
 		props.getCurrentProfile();
 	}, []);
 
