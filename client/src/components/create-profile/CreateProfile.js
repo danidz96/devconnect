@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import InputGroup from '../common/InputGroup';
+import { createProfile } from '../../actions/profileActions';
 
 const CreateProfile = (props) => {
 	const [ profile, setProfile ] = useState({
@@ -23,7 +25,13 @@ const CreateProfile = (props) => {
 		instagram: '',
 		errors: {}
 	});
-	// const [ displaySocialInputs, setDisplaySocialInputs ] = useState(false);
+
+	useEffect(
+		() => {
+			setProfile({ ...profile, errors: props.errors });
+		},
+		[ props.errors ]
+	);
 
 	// Select options for status
 	const options = [
@@ -61,7 +69,7 @@ const CreateProfile = (props) => {
 			instagram: profile.instagram
 		};
 
-		console.log(profileData);
+		props.createProfile(profileData, props.history);
 	};
 
 	let socialInputs;
@@ -219,4 +227,4 @@ const mapStateToProps = (state) => ({
 	profile: state.profile
 });
 
-export default connect(mapStateToProps)(CreateProfile);
+export default connect(mapStateToProps, { createProfile })(withRouter(CreateProfile));
