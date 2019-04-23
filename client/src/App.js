@@ -12,6 +12,7 @@ import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
 import PrivateRoute from './components/common/PrivateRoute';
 import CreateProfile from './components/create-profile/CreateProfile';
+import AddExperience from './components/add-credentials/AddExperience';
 import './styles/App.css';
 import store from './store';
 
@@ -48,6 +49,7 @@ const App = () => {
 						<Switch>
 							<PrivateRoute exact path="/dashboard" component={Dashboard} />
 							<PrivateRoute exact path="/create-profile" component={CreateProfile} />
+							<PrivateRoute exact path="/add-experience" component={AddExperience} />
 						</Switch>
 					</div>
 					<Footer />
