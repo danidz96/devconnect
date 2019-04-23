@@ -8,7 +8,7 @@ import InputGroup from '../common/InputGroup';
 import { createProfile } from '../../actions/profileActions';
 
 const CreateProfile = (props) => {
-	const [ profile, setProfile ] = useState({
+	const initialProfile = {
 		displaySocialInputs: false,
 		handle: '',
 		company: '',
@@ -24,7 +24,9 @@ const CreateProfile = (props) => {
 		youtube: '',
 		instagram: '',
 		errors: {}
-	});
+	};
+
+	const [ profile, setProfile ] = useState(initialProfile);
 
 	useEffect(
 		() => {
@@ -53,21 +55,7 @@ const CreateProfile = (props) => {
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		const profileData = {
-			handle: profile.handle,
-			company: profile.company,
-			website: profile.website,
-			location: profile.location,
-			status: profile.status,
-			skills: profile.skills,
-			githubusername: profile.githubusername,
-			bio: profile.bio,
-			twitter: profile.twitter,
-			facebook: profile.facebook,
-			linkedin: profile.linkedin,
-			youtube: profile.youtube,
-			instagram: profile.instagram
-		};
+		const { errors, displaySocialInputs, ...profileData } = profile;
 
 		props.createProfile(profileData, props.history);
 	};
