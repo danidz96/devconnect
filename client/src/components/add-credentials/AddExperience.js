@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { connect } from 'react-redux';
+import { addExperience } from '../../actions/profileActions';
 
 const AddExperience = (props) => {
 	const initialExperience = {
@@ -19,7 +20,20 @@ const AddExperience = (props) => {
 
 	const [ experience, setExperience ] = useState(initialExperience);
 
-	const onSubmit = () => {};
+	useEffect(
+		() => {
+			setExperience({ ...experience, errors: props.errors });
+		},
+		[ props.errors ]
+	);
+
+	const onSubmit = (e) => {
+		e.preventDefault();
+
+		const { errors, disabled, ...experienceData } = experience;
+
+		props.addExperience(experienceData, props.history);
+	};
 
 	const onChange = (input) => {
 		setExperience({ ...experience, [input.name]: input.value });
@@ -48,7 +62,7 @@ const AddExperience = (props) => {
 								type="text"
 								value={experience.company}
 								onChange={(e) => onChange(e.target)}
-								errors={experience.errors.company}
+								error={experience.errors.company}
 							/>
 							<TextFieldGroup
 								placeholder="Job Title:*"
@@ -56,7 +70,7 @@ const AddExperience = (props) => {
 								type="text"
 								value={experience.title}
 								onChange={(e) => onChange(e.target)}
-								errors={experience.errors.title}
+								error={experience.errors.title}
 							/>
 							<TextFieldGroup
 								placeholder="Location:"
@@ -64,7 +78,7 @@ const AddExperience = (props) => {
 								type="text"
 								value={experience.location}
 								onChange={(e) => onChange(e.target)}
-								errors={experience.errors.location}
+								error={experience.errors.location}
 							/>
 							<h6>From Date</h6>
 							<TextFieldGroup
@@ -72,7 +86,7 @@ const AddExperience = (props) => {
 								type="date"
 								value={experience.from}
 								onChange={(e) => onChange(e.target)}
-								errors={experience.errors.from}
+								error={experience.errors.from}
 							/>
 							<h6>To Date</h6>
 							<TextFieldGroup
@@ -101,7 +115,7 @@ const AddExperience = (props) => {
 								name="description"
 								value={experience.descriptio}
 								onChange={(e) => onChange(e.target)}
-								errors={experience.errors.description}
+								error={experience.errors.description}
 								info="Tell us about the position"
 							/>
 							<input type="submit" value="Submit" className="btn btn-info btn-block mt-4" />
@@ -118,4 +132,4 @@ const mapStateToProps = (state) => ({
 	errors: state.errors
 });
 
-export default connect(mapStateToProps)(withRouter(AddExperience));
+export default connect(mapStateToProps, { addExperience })(withRouter(AddExperience));

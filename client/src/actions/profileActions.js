@@ -42,3 +42,13 @@ export const clearCurrentProfile = () => {
 		type: 'CLEAR_CURRENT_PROFILE'
 	};
 };
+
+// Add experience
+export const addExperience = (experienceData, history) => (dispatch) => {
+	axios.post('/api/profile/experience', experienceData).then((res) => history.push('/dashboard')).catch((err) =>
+		dispatch({
+			type: 'GET_ERRORS',
+			payload: err.response.data
+		})
+	);
+};
