@@ -32,7 +32,7 @@ const AddEducation = (props) => {
 
 		const { errors, disabled, ...educationData } = education;
 
-		props.AddEducation(educationData, props.history);
+		props.addEducation(educationData, props.history);
 	};
 
 	const onChange = (input) => {

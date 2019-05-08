@@ -14,6 +14,7 @@ import PrivateRoute from './components/common/PrivateRoute';
 import CreateProfile from './components/create-profile/CreateProfile';
 import AddExperience from './components/add-credentials/AddExperience';
 import './styles/App.css';
+import AddEducation from './components/add-credentials/AddEducation';
 import store from './store';
 
 // Check for token
@@ -50,6 +51,7 @@ const App = () => {
 							<PrivateRoute exact path="/dashboard" component={Dashboard} />
 							<PrivateRoute exact path="/create-profile" component={CreateProfile} />
 							<PrivateRoute exact path="/add-experience" component={AddExperience} />
+							<PrivateRoute exact path="/add-education" component={AddEducation} />
 						</Switch>
 					</div>
 					<Footer />
