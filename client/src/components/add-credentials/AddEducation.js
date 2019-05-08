@@ -3,13 +3,13 @@ import { Link, withRouter } from 'react-router-dom';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { connect } from 'react-redux';
-import { addExperience } from '../../actions/profileActions';
+import { addEducation } from '../../actions/profileActions';
 
-const AddExperience = (props) => {
-	const initialExperience = {
-		company: '',
-		title: '',
-		location: '',
+const AddEducation = (props) => {
+	const initialEducation = {
+		school: '',
+		degree: '',
+		fieldofstudy: '',
 		from: '',
 		to: '',
 		current: false,
@@ -18,11 +18,11 @@ const AddExperience = (props) => {
 		disabled: false
 	};
 
-	const [ experience, setExperience ] = useState(initialExperience);
+	const [ education, setEducation ] = useState(initialEducation);
 
 	useEffect(
 		() => {
-			setExperience({ ...experience, errors: props.errors });
+			setEducation({ ...education, errors: props.errors });
 		},
 		[ props.errors ]
 	);
@@ -30,93 +30,92 @@ const AddExperience = (props) => {
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		const { errors, disabled, ...experienceData } = experience;
+		const { errors, disabled, ...educationData } = education;
 
-		props.addExperience(experienceData, props.history);
+		props.AddEducation(educationData, props.history);
 	};
 
 	const onChange = (input) => {
-		setExperience({ ...experience, [input.name]: input.value });
+		setEducation({ ...education, [input.name]: input.value });
 	};
 
 	const onChangeCheckbox = () => {
-		setExperience({ ...experience, current: !experience.current, disabled: !experience.disabled });
+		setEducation({ ...education, current: !education.current, disabled: !education.disabled });
 	};
 
 	return (
-		<div className="add-experience">
+		<div className="add-education">
 			<div className="container">
 				<div className="row">
 					<div className="col-md-8 m-auto">
 						<Link to="/dashboard" className="btn btn-light">
 							Go Back
 						</Link>
-						<h1 className="display-4 text-center">Add Experience</h1>
-						<p className="lead text-center">
-							Add any job or position that you have had in the past or current
-						</p>
+						<h1 className="display-4 text-center">Add Education</h1>
+						<p className="lead text-center">Add any school, bootcamp... That you attended</p>
 						<form onSubmit={onSubmit}>
 							<TextFieldGroup
-								placeholder="Company:*"
-								name="company"
+								placeholder="School:*"
+								name="school"
 								type="text"
-								value={experience.company}
+								value={education.school}
 								onChange={(e) => onChange(e.target)}
-								error={experience.errors.company}
+								error={education.errors.school}
 							/>
 							<TextFieldGroup
-								placeholder="Job Title:*"
-								name="title"
+								placeholder="Degree:*"
+								name="degree"
 								type="text"
-								value={experience.title}
+								value={education.degree}
 								onChange={(e) => onChange(e.target)}
-								error={experience.errors.title}
+								error={education.errors.degree}
 							/>
 							<TextFieldGroup
-								placeholder="Location:"
-								name="location"
+								placeholder="Field of Study:"
+								name="fieldofstudy"
 								type="text"
-								value={experience.location}
+								value={education.fieldofstudy}
 								onChange={(e) => onChange(e.target)}
-								error={experience.errors.location}
+								error={education.errors.fieldofstudy}
 							/>
 							<h6>From Date</h6>
 							<TextFieldGroup
 								name="from"
 								type="date"
-								value={experience.from}
+								value={education.from}
 								onChange={(e) => onChange(e.target)}
-								error={experience.errors.from}
+								error={education.errors.from}
 							/>
 							<h6>To Date</h6>
 							<TextFieldGroup
 								name="to"
 								type="date"
-								value={experience.to}
+								value={education.to}
 								onChange={(e) => onChange(e.target)}
-								errors={experience.errors.to}
-								disabled={experience.disabled && 'disabled'}
+								errors={education.errors.to}
+								disabled={education.disabled && 'disabled'}
 							/>
 							<div className="form-check mb-4">
 								<input
 									type="checkbox"
 									name="current"
 									className="form-check-input"
-									checked={experience.current}
+									checked={education.current}
 									onChange={(e) => onChangeCheckbox()}
 									id="current"
 								/>
 								<label htmlFor="current" className="form-check-label">
-									Current Job
+									Current Program
 								</label>
 							</div>
 							<TextAreaFieldGroup
-								placeholder="Job Description"
+								placeholder="
+                Program Description"
 								name="description"
-								value={experience.description}
+								value={education.description}
 								onChange={(e) => onChange(e.target)}
-								error={experience.errors.description}
-								info="Tell us about the position"
+								error={education.errors.description}
+								info="Tell us about the program"
 							/>
 							<input type="submit" value="Submit" className="btn btn-info btn-block mt-4" />
 						</form>
@@ -132,4 +131,4 @@ const mapStateToProps = (state) => ({
 	errors: state.errors
 });
 
-export default connect(mapStateToProps, { addExperience })(withRouter(AddExperience));
+export default connect(mapStateToProps, { addEducation })(withRouter(AddEducation));
