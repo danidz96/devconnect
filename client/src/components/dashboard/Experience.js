@@ -2,8 +2,13 @@ import React from 'react';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { deleteExperience } from '../../actions/profileActions';
 
 const Experience = (props) => {
+	const onDeleteClick = (id) => {
+		props.deleteExperience(id);
+	};
+
 	const experience = props.experiences.map((experience) => (
 		<tr key={experience._id}>
 			<td>{experience.company}</td>
@@ -13,7 +18,10 @@ const Experience = (props) => {
 				{experience.to ? <Moment format="DD/MM/YYYY">{experience.to}</Moment> : ' Current'}
 			</td>
 			<td>
-				<button className="btn btn-danger">Delete</button>
+				<button onClick={() => onDeleteClick(experience._id)} className="btn btn-danger">
+					{' '}
+					Delete
+				</button>
 			</td>
 		</tr>
 	));
@@ -35,4 +43,4 @@ const Experience = (props) => {
 	);
 };
 
-export default connect(null)(withRouter(Experience));
+export default connect(null, { deleteExperience })(withRouter(Experience));
