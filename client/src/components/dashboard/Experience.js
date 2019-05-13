@@ -19,7 +19,6 @@ const Experience = (props) => {
 			</td>
 			<td>
 				<button onClick={() => onDeleteClick(experience._id)} className="btn btn-danger">
-					{' '}
 					Delete
 				</button>
 			</td>
