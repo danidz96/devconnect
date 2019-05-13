@@ -57,7 +57,7 @@ const EditProfile = (props) => {
 				profile.youtube = !isEmpty(profile.social.youtube) ? profile.social.youtube : '';
 				profile.instagram = !isEmpty(profile.social.instagram) ? profile.social.instagram : '';
 
-				setProfile({ ...profile, errors: props.errors });
+				setProfile({ ...profile, skills: profile.skills.toString(), errors: props.errors });
 			}
 		},
 		[ props.profile.profile ]
