@@ -2,7 +2,7 @@ import React from 'react';
 import isEmpty from '../../validation/isEmpty';
 
 const ProfileHeader = (props) => {
-	const { profile } = props.profile;
+	const { profile } = props;
 	return (
 		<div className="row">
 			<div className="col-md-12">

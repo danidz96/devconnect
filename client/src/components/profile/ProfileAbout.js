@@ -2,7 +2,7 @@ import React from 'react';
 import isEmpty from '../../validation/isEmpty';
 
 const ProfileAbout = (props) => {
-	const { profile } = props.profile;
+	const { profile } = props;
 
 	const firstName = profile.user.name.trim().split(' ')[0];
 
