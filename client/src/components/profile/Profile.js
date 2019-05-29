@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Spinner from '../common/Spinner';
 import { getProfileByHandle } from '../../actions/profileActions';
 import ProfileHeader from './ProfileHeader';
+import ProfileAbout from './ProfileAbout';
 
 const Profile = (props) => {
 	useEffect(() => {
@@ -29,6 +30,7 @@ const Profile = (props) => {
 					<div className="col-md-6" />
 				</div>
 				<ProfileHeader profile={profile} />
+				<ProfileAbout profile={profile} />
 			</div>
 		);
 	}
