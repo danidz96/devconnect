@@ -6,6 +6,7 @@ import { getProfileByHandle } from '../../actions/profileActions';
 import ProfileHeader from './ProfileHeader';
 import ProfileAbout from './ProfileAbout';
 import ProfileCreds from './ProfileCreds';
+import ProfileGithub from './ProfileGithub';
 
 const Profile = (props) => {
 	useEffect(() => {
@@ -33,6 +34,7 @@ const Profile = (props) => {
 				<ProfileHeader profile={profile} />
 				<ProfileAbout profile={profile} />
 				<ProfileCreds education={profile.education} experience={profile.experience} />
+				{profile.githubusername ? <ProfileGithub username={profile.githubusername} /> : null}
 			</div>
 		);
 	}
