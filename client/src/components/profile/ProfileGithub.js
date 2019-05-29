@@ -18,7 +18,6 @@ const ProfileGithub = (props) => {
 			`https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecret}`
 		);
 		const data = await response.json();
-		console.log(data);
 		setGithubState({ ...githubState, repos: data });
 	};
 
