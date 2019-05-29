@@ -9,13 +9,23 @@ import ProfileCreds from './ProfileCreds';
 import ProfileGithub from './ProfileGithub';
 
 const Profile = (props) => {
+	const { profile, loading } = props.profile;
+
 	useEffect(() => {
 		if (props.match.params.handle) {
 			props.getProfileByHandle(props.match.params.handle);
 		}
 	}, []);
 
-	const { profile, loading } = props.profile;
+	useEffect(
+		() => {
+			if (props.profile.profiles === null && loading) {
+				props.history.push('/not-found');
+			}
+		},
+		[ props.profile ]
+	);
+
 	let profileContent;
 
 	if (profile === null || loading) {
