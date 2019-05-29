@@ -5,6 +5,7 @@ import Spinner from '../common/Spinner';
 import { getProfileByHandle } from '../../actions/profileActions';
 import ProfileHeader from './ProfileHeader';
 import ProfileAbout from './ProfileAbout';
+import ProfileCreds from './ProfileCreds';
 
 const Profile = (props) => {
 	useEffect(() => {
@@ -13,10 +14,10 @@ const Profile = (props) => {
 		}
 	}, []);
 
-	const { profile, loading } = props;
+	const { profile, loading } = props.profile;
 	let profileContent;
 
-	if (profile.profile === null || loading) {
+	if (profile === null || loading) {
 		profileContent = <Spinner />;
 	} else {
 		profileContent = (
@@ -31,6 +32,7 @@ const Profile = (props) => {
 				</div>
 				<ProfileHeader profile={profile} />
 				<ProfileAbout profile={profile} />
+				<ProfileCreds education={profile.education} experience={profile.experience} />
 			</div>
 		);
 	}
