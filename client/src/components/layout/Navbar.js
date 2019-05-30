@@ -20,6 +20,11 @@ const Navbar = (props) => {
 					Dashboard
 				</Link>
 			</li>
+			<li className="nav-item">
+				<Link className="nav-link" to="/feed">
+					Post Feed
+				</Link>
+			</li>
 			<li className="nav-item avatar">
 				<img
 					className="navbar-avatar rounded-circle"

@@ -18,6 +18,7 @@ import './styles/App.css';
 import AddEducation from './components/add-credentials/AddEducation';
 import Profiles from './components/profiles/Profiles';
 import Profile from './components/profile/Profile';
+import Posts from './components/posts/Posts';
 import NotFound from './components/not-found/NotFound';
 import store from './store';
 
@@ -59,6 +60,7 @@ const App = () => {
 							<PrivateRoute exact path="/edit-profile" component={EditProfile} />
 							<PrivateRoute exact path="/add-experience" component={AddExperience} />
 							<PrivateRoute exact path="/add-education" component={AddEducation} />
+							<PrivateRoute exact path="/feed" component={Posts} />
 						</Switch>
 						<Route exact path={'/not-found'} component={NotFound} />
 					</div>
