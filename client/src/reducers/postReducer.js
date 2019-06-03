@@ -23,6 +23,12 @@ export default (state = initialState, action) => {
 				posts: [ action.payload, ...state.posts ]
 			};
 		}
+		case 'DELTE_POST': {
+			return {
+				...state,
+				posts: state.posts.filter((post) => post._id !== action.payload)
+			};
+		}
 		default:
 			return state;
 	}

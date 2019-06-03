@@ -16,6 +16,13 @@ export const getPosts = (postData) => (dispatch) => {
 		.catch((err) => dispatch({ type: 'GET_POSTS', payload: null }));
 };
 
+export const deletePost = (id) => (dispatch) => {
+	axios
+		.delete(`/api/posts/${id}`)
+		.then((res) => dispatch({ type: 'DELETE_POST', payload: id }))
+		.catch((err) => dispatch({ type: 'GET_ERRORS', payload: err.response.data }));
+};
+
 export const setPostLoading = () => {
 	return {
 		type: 'POST_LOADING'
