@@ -39,27 +39,33 @@ const PostItem = (props) => {
 				</div>
 				<div className="col-md-10">
 					<p className="lead">{post.text}</p>
-					<span>
-						<button onClick={() => onLikeClick(post._id)} type="button" className="btn btn-light mr-1">
-							<i className={`fas fa-thumbs-up ${findUserLike(post.likes) && 'text-info'}`} />
-							<span className="badge">{post.likes.length}</span>
-						</button>
-						<button onClick={() => onUnlikeClick(post._id)} type="button" className="btn btn-light mr-1">
-							<i className="text-secondary fas fa-thumbs-down" />
-						</button>
-						<Link to={`/post/${post._id}`} className="btn btn-info mr-1">
-							Comments
-						</Link>
-						{post.user === auth.user.id ? (
-							<button
-								onClick={() => onDeleteClick(post._id)}
-								type="button"
-								className="btn btn-danger mr-1"
-							>
-								<i className="fas fa-times" />
+					{showActions ? (
+						<span>
+							<button onClick={() => onLikeClick(post._id)} type="button" className="btn btn-light mr-1">
+								<i className={`fas fa-thumbs-up ${findUserLike(post.likes) && 'text-info'}`} />
+								<span className="badge">{post.likes.length}</span>
 							</button>
-						) : null}
-					</span>
+							<button
+								onClick={() => onUnlikeClick(post._id)}
+								type="button"
+								className="btn btn-light mr-1"
+							>
+								<i className="text-secondary fas fa-thumbs-down" />
+							</button>
+							<Link to={`/post/${post._id}`} className="btn btn-info mr-1">
+								Comments
+							</Link>
+							{post.user === auth.user.id ? (
+								<button
+									onClick={() => onDeleteClick(post._id)}
+									type="button"
+									className="btn btn-danger mr-1"
+								>
+									<i className="fas fa-times" />
+								</button>
+							) : null}
+						</span>
+					) : null}
 				</div>
 			</div>
 		</div>
