@@ -27,7 +27,7 @@ const PostForm = (props) => {
 		<div>
 			<div className="post-form mb-3">
 				<div className="card card-info">
-					<div className="card-header bg-info text-white">Say Somthing...</div>
+					<div className="card-header bg-info text-white">Say Something...</div>
 					<div className="card-body">
 						<form onSubmit={onSubmit}>
 							<div className="form-group">
