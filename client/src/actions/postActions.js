@@ -39,6 +39,7 @@ export const addLike = (id) => (dispatch) => {
 };
 
 export const addComment = (postId, commentData) => (dispatch) => {
+	dispatch(clearErrors());
 	axios
 		.post(`/api/posts/comment/${postId}`, commentData)
 		.then((res) => dispatch({ type: 'GET_POST', payload: res.data }))
