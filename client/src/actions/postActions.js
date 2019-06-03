@@ -8,6 +8,20 @@ export const addPost = (postData) => (dispatch) => {
 		.catch((err) => dispatch({ type: 'GET_ERRORS', payload: err.response.data }));
 };
 
+export const getPosts = (postData) => (dispatch) => {
+	dispatch(setPostLoading());
+	axios
+		.get('/api/posts')
+		.then((res) => dispatch({ type: 'GET_POSTS', payload: res.data }))
+		.catch((err) => dispatch({ type: 'GET_POSTS', payload: null }));
+};
+
+export const setPostLoading = () => {
+	return {
+		type: 'POST_LOADING'
+	};
+};
+
 // Clear errors
 export const clearErrors = () => {
 	return {
